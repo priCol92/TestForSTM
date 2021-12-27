@@ -1,0 +1,131 @@
+### Loading an image - "comic Fantastic four"
+
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="file"; filename="comic Fantastic four.jpg"
+Content-Type: image/jpeg
+
+< comic%20Fantastic%20four.jpg
+--WebBoundary--
+
+> {%
+client.global.set('comicFantasticFour', response.body.name);
+%}
+
+### Show three characters per page
+
+GET http://localhost:8080/public/characters?page=1
+
+### Getting exception
+
+GET http://localhost:8080/public/characters?page=4
+
+### Fetches a single character by id
+
+GET http://localhost:8080/public/characters/1
+
+### Getting exception
+
+GET http://localhost:8080/public/characters/15
+
+### Fetches lists of comics filtered by a character id
+
+GET http://localhost:8080/public/characters/1/comics
+
+### Greate character
+
+POST http://localhost:8080/public/characters/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "nickname": "Дэдпул",
+  "name": "Уэйд Уинстон Уилсон",
+  "description": "Дэдпул был подвергнут опытам по программе «Оружие Икс».",
+  "image": "герой Дэдпул",
+  "idComics": [
+    5,
+    6
+  ]
+}
+
+### Update character
+
+POST http://localhost:8080/public/characters/save
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nickname": "Капитан Америка",
+  "name": "Стивен Роджерс",
+  "description": "Капитан Америка в поисках своего щита.",
+  "image": "герой Капитан Америка",
+  "idComics": [
+    3,
+    5
+  ]
+}
+
+### Show three comics per page
+
+GET http://localhost:8080/public/comics?page=1
+
+### Getting exception
+
+GET http://localhost:8080/public/comics?page=4
+
+### Fetches a single comic by id
+
+GET http://localhost:8080/public/comics/1
+
+### Getting exception
+
+GET http://localhost:8080/public/comics/15
+
+### Fetches lists of characters filtered by a comic id
+
+GET http://localhost:8080/public/comics/1/characters
+
+### Greate comics
+
+POST http://localhost:8080/public/comics/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "title": "Фантастическая четверка",
+  "issueNumber": 48,
+  "writer": [
+    "Стэн Ли"
+  ],
+  "published": "Март, 1966",
+  "description": "Сёрфер заключил мир с Галактусом, спася его текущего вестника Нову от Скруллов, после которого Галактус наконец избавил Сёрфера от его наказания.",
+  "image": "comicFantasticFour",
+  "idCharacters": [
+    4
+  ]
+}
+
+### Update comic
+
+POST http://localhost:8080/public/comics/save
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Капитан Америка",
+  "issueNumber": 2,
+  "writer": [
+    "Джо Саймон"
+  ],
+  "published": "Апрель, 1941",
+  "description": "Вступление в ряды Мстителей. Вперед к проблемам.",
+  "image": "комикс Капитан Америка",
+  "idCharacters": [
+    2
+  ]
+}
+
+###
